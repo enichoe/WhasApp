@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - WhatsApp Bulk SaaS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body class="auth-container">
+    
+    <div class="auth-card">
+        <div class="text-center mb-4">
+            <i class="bi bi-whatsapp text-success fs-1"></i>
+            <h2 class="mt-2 fw-bold">Crear Cuenta</h2>
+            <p class="text-muted">Empieza a enviar campañas hoy mismo</p>
+        </div>
+
+        <form id="registerForm">
+            <div class="mb-3">
+                <label class="form-label">Nombre del Negocio</label>
+                <input type="text" id="businessName" class="form-control" placeholder="Ej: Mi Empresa S.A.C." required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nombre del Administrador</label>
+                <input type="text" id="adminName" class="form-control" placeholder="Ej: Juan Pérez" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Correo Electrónico</label>
+                <input type="email" id="email" class="form-control" placeholder="admin@empresa.com" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Contraseña</label>
+                <input type="password" id="password" class="form-control" placeholder="••••••••" required minlength="6">
+            </div>
+            <button type="submit" class="btn btn-whatsapp w-100 mb-3" id="btnRegister">
+                Registrarse <i class="bi bi-arrow-right ms-2"></i>
+            </button>
+        </form>
+
+        <div class="text-center">
+            <p class="mb-0">¿Ya tienes cuenta? <a href="login.html" class="text-success text-decoration-none fw-bold">Inicia Sesión</a></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
