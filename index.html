@@ -9,14 +9,31 @@
     <script src="js/supabase.js"></script>
     <script>
         async function checkSession() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                window.location.href = 'dashboard/dashboard.html';
-            } else {
+            try {
+                // Timeout de seguridad para evitar esperas infinitas
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Timeout de conexión')), 5000)
+                );
+
+                const sessionPromise = supabase.auth.getSession();
+                
+                const { data: { session } } = await Promise.race([sessionPromise, timeoutPromise]);
+                
+                if (session) {
+                    window.location.href = 'dashboard/dashboard.html';
+                } else {
+                    window.location.href = 'login.html';
+                }
+            } catch (error) {
+                console.error('Error en checkSession:', error);
+                // Si hay un error (ej. falta internet o error de config), redirigimos al login
+                // para que el usuario pueda intentar de nuevo o ver el error allí.
                 window.location.href = 'login.html';
             }
         }
-        checkSession();
+        
+        // Esperamos a que los scripts se carguen completamente
+        window.onload = checkSession;
     </script>
 </head>
 <body>
