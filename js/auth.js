@@ -43,7 +43,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 if (error) throw error;
 
-                alert('Registro exitoso. Por favor, verifica tu correo (si está habilitado) o inicia sesión.');
+                // Mensaje más claro dependiendo de si se requiere confirmación
+                if (data.user && data.user.identities && data.user.identities.length === 0) {
+                    alert('Este correo ya está registrado. Intenta iniciar sesión.');
+                } else {
+                    alert('¡Registro exitoso! Por favor, revisa tu correo electrónico para confirmar tu cuenta antes de iniciar sesión.');
+                }
                 window.location.href = 'login.html';
             } catch (error) {
                 alert('Error en el registro: ' + error.message);
@@ -71,9 +76,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                     password
                 });
 
-                if (error) throw error;
+                if (error) {
+                    // Manejo específico del error de confirmación de email
+                    if (error.message.includes('Email not confirmed')) {
+                        throw new Error('Debes confirmar tu correo electrónico antes de iniciar sesión. Por favor, revisa tu bandeja de entrada o spam.');
+                    }
+                    throw error;
+                }
 
-                // Guardar datos en el perfil si es necesario (el trigger de SQL lo hace automáticamente)
                 window.location.href = 'dashboard/dashboard.html';
             } catch (error) {
                 alert('Error al iniciar sesión: ' + error.message);
